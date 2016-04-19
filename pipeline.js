@@ -9,7 +9,6 @@ var pipeline = (function() {
     var context = canvas.getContext('2d');
 
     var width, height;
-
     var redrawInterval;
 
     video.addEventListener('playing', function() {
@@ -30,8 +29,11 @@ var pipeline = (function() {
     });
 
     video.addEventListener('loadeddata', function() {
-      width = video.clientWidth;
-      height = video.clientHeight;
+      width = video.videoWidth;
+      height = video.videoHeight;
+
+      video.style.width = video.clientWidth;
+      video.style.height = video.clientHeight;
 
       canvas.width = width;
       canvas.height = height;
