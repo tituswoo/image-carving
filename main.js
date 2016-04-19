@@ -26,6 +26,9 @@ $(function() {
 });
 
 function modifyFrame(imageData) {
+  // Copied below code from
+  // "http://html5doctor.com/video-canvas-magic/"
+  // To test that my pipeline works...
   var data = imageData.data;
   for(var i = 0; i < data.length; i+=4) {
     var r = data[i];
