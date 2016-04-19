@@ -15,8 +15,6 @@ $(function() {
     video.on('loaded', function(video) {
       preview.width = video.videoWidth;
       preview.height = video.videoHeight;
-      preview.style.width = video.clientWidth;
-      preview.style.height = video.clientHeight;
     });
 
     video.imageStream(function(imageData) {

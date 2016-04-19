@@ -1,9 +1,18 @@
-#video-player {
-  width: 500px;
-  height: auto;
-}
-
 .container {
   display: flex;
   flex-direction: row;
+}
+
+.container video, .container canvas {
+  width: 100%;
+  height: auto;
+}
+
+.container > * {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.container > *:last-child {
+  margin-right: 0;
 }

@@ -32,9 +32,6 @@ var pipeline = (function() {
       width = video.videoWidth;
       height = video.videoHeight;
 
-      video.style.width = video.clientWidth;
-      video.style.height = video.clientHeight;
-
       canvas.width = width;
       canvas.height = height;
 
@@ -45,6 +42,7 @@ var pipeline = (function() {
     });
 
     function _getImageDataFromVideo() {
+      console.log('running');
       context.drawImage(video, 0, 0, width, height);
       return context.getImageData(0, 0, width, height);
     }
