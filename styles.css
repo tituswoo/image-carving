@@ -1,0 +1,9 @@
+#video-player {
+  width: 500px;
+  height: auto;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+}

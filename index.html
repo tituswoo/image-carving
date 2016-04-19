@@ -1,0 +1,26 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Video Editor</title>
+  <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+  <script src="pipeline.js"></script>
+  <script src="main.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Upload video</h1>
+  <label for="fileUpload"></label>
+  <input type="file" accept="video/*" id="fileUpload">
+  <div class="container">
+    <div>
+      <h2>Original</h2>
+      <video id="video-player" controls></video>
+    </div>
+    <div>
+      <h2>Enhancements</h2>
+      <canvas id="video-preview"></canvas>
+    </div>
+  </div>
+</body>
+</html>
