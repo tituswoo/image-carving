@@ -1,11 +1,12 @@
-// http://html5doctor.com/video-canvas-magic/
-
 'use strict';
 
 $(function() {
   var originalVideo = document.querySelector('#video-player');
+  var videoContainers = document.querySelector('#video-containers');
   var preview = document.querySelector('#video-preview');
   var videoPipeline = pipeline(originalVideo);
+
+  videoContainers.style.visibility = 'hidden';
 
   $('#fileUpload').on('change', function() {
     var file = $(this)[0].files[0];
@@ -15,6 +16,7 @@ $(function() {
     video.on('loaded', function(video) {
       preview.width = video.videoWidth;
       preview.height = video.videoHeight;
+      videoContainers.style.visibility = 'visible';
     });
 
     video.imageStream(function(imageData) {
