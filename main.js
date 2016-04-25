@@ -6,7 +6,7 @@
     var preview = document.querySelector('#video-preview');
     var fileUpload = document.querySelector('#fileUpload');
     var videoPipeline = pipeline(originalVideo);
-    
+
     videoContainers.style.visibility = 'hidden';
 
     fileUpload.addEventListener('change', function(e) {
@@ -22,14 +22,12 @@
 
       video.imageStream(function(imageData) {
         var previewCtx = preview.getContext('2d');
-        imageData = modifyFrame(imageData);
-        previewCtx.putImageData(imageData, 0, 0);
+        var grayscaleTool = tooling.use('grayscale');
+
+        grayscaleTool(imageData).then(function(imageData) {
+          previewCtx.putImageData(imageData, 0, 0);
+        });
       });
     });
   };
-
-  function modifyFrame(imageData) {
-    var grayscale = tooling.use('grayscale');
-    return grayscale(imageData);
-  }
 })(tooling);
