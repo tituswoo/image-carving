@@ -23,8 +23,11 @@
       video.imageStream(function(imageData) {
         var previewCtx = preview.getContext('2d');
         var grayscaleTool = tooling.use('grayscale');
+        var seamCarvingTool = tooling.use('seamCarve');
 
         grayscaleTool(imageData).then(function(imageData) {
+          return seamCarvingTool(imageData, previewCtx);
+        }).then(function(imageData) {
           previewCtx.putImageData(imageData, 0, 0);
         });
       });
