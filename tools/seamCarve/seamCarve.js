@@ -19,10 +19,7 @@
 
       worker.addEventListener('message', function(e) {
         var action = e.data.action;
-        console.info(e.data);
         if (action === 'done') {
-          console.info('RENDER COMPLETED!');
-          console.log(e.data.image);
           var res = e.data.image;
           var newImage = ctx.createImageData(res.width, res.height);
           for (var i = 0; i < res.data.length; i++) {
