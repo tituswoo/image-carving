@@ -48,7 +48,7 @@ var pipeline = (function() {
 
     function _getImageDataFromVideo() {
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      return context.getImageData(0, 0, width, height);
+      return context.getImageData(0, 0, width * _renderResolution, height * _renderResolution);
     }
 
     return function(fileURL) {
