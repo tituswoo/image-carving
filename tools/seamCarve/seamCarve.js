@@ -3,7 +3,6 @@
 
   function seamCarver(imageData, ctx) {
     return new Promise(function(resolve, reject) {
-      console.info('starting worker...');
       var worker = new Worker('tools/seamCarve/SeamCarver.js');
       worker.postMessage({
         image: {
@@ -12,8 +11,7 @@
           data: imageData.data
         },
         adjust: {
-          width: imageData.height - 200,
-          height: imageData.width - 200
+          width: imageData.width - 100
         }
       });
 

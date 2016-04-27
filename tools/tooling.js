@@ -6,7 +6,6 @@
   window.tooling = {
     register: function(tool) {
       _tools.push(tool);
-      console.info('Registered tool:', tool.name);
     },
     use: function(toolName) {
       var tool = _tools.filter(function(tool) {
@@ -20,5 +19,4 @@
       }
     }
   };
-
 })(window);
