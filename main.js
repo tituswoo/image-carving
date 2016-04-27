@@ -16,7 +16,7 @@
       var previewCtx = preview.getContext('2d');
       var video = videoPipeline(fileURL);
 
-      video.renderResolution(0.25);
+      video.renderResolution(0.15);
 
       video.on('loaded', function(video, dimen) {
         preview.width = dimen.width;
@@ -28,21 +28,11 @@
         var grayscaleTool = tooling.use('grayscale');
         var seamCarvingTool = tooling.use('seamCarve');
 
-        // grayscaleTool(imageData).then(function(idata) {
-        //   return previewCtx.putImageData(idata, 0, 0);
-        // });
-
         seamCarvingTool(imageData, previewCtx).then(function(idata) {
+          return grayscaleTool(idata);
+        }).then(function(idata) {
           return previewCtx.putImageData(idata, 0, 0);
-        })
-
-        // grayscaleTool(imageData).then(function(idata) {
-        //   return seamCarvingTool(idata, previewCtx);
-        // }).then(function(idata) {
-        //   console.log('drawing to canvas...');
-        //   return previewCtx.putImageData(idata, 0, 0);
-        // });
-
+        });
       });
     });
   };

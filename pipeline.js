@@ -2,6 +2,7 @@ var pipeline = (function() {
   'use strict';
 
   return pipeline;
+  var _renderRate = 10;
 
   function pipeline(video) {
     var events = eventsManager();
@@ -68,6 +69,7 @@ var pipeline = (function() {
 
   function eventsManager() {
     var registeredEvents = [];
+    var rateCount = 0;
 
     return {
       trigger: function(eventName, ...args) {

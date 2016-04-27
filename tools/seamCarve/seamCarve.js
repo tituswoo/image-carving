@@ -11,12 +11,11 @@
           data: imageData.data
         },
         adjust: {
-          width: imageData.width - 300
+          width: imageData.width - 50
         }
       });
 
       worker.addEventListener('message', function(e) {
-        console.info(e.data);
         var action = e.data.action;
         if (action === 'done') {
           var res = e.data.image;
