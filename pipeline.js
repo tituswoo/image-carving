@@ -42,7 +42,6 @@ var pipeline = (function() {
     });
 
     function _getImageDataFromVideo() {
-      console.log('running');
       context.drawImage(video, 0, 0, width, height);
       return context.getImageData(0, 0, width, height);
     }
