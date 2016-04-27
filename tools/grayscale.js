@@ -3,12 +3,12 @@
 
   function grayscale(imageData) {
     return new Promise(function(resolve, reject) {
-      // Copied below code from
-      // "http://html5doctor.com/video-canvas-magic/"
-      // To test that my pipeline works...
+      // // Copied based on algorithm from:
+      // // "http://html5doctor.com/video-canvas-magic/"
+
       var data = imageData.data;
 
-      for(var i = 0; i < data.length; i+=4) {
+      for(var i = 0; i < data.length; i += 4) {
         var r = data[i];
         var g = data[i+1];
         var b = data[i+2];
@@ -17,6 +17,14 @@
         data[i+1] = brightness;
         data[i+2] = brightness;
       }
+
+      // webImage(imageData).forEach(function(p, save) {
+      //   var brightness = (3*p.r+4*p.g+p.b)>>>3;
+      //   p.r = brightness;
+      //   p.g = brightness;
+      //   p.b = brightness;
+      //   save(p);
+      // });
 
       resolve(imageData);
     });
