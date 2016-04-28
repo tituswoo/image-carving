@@ -42,14 +42,18 @@ var pipeline = (function() {
         width: canvas.width,
         height: canvas.height
       });
-      events.trigger('imageStream',
-        _getImageDataFromVideo()
-      );
+      events.trigger('imageStream', _getImageDataFromVideo());
     });
 
     function _getImageDataFromVideo() {
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      return context.getImageData(0, 0, width * _renderResolution, height * _renderResolution);
+      let w = video.videoWidth * _renderResolution;
+      let h = video.videoHeight * _renderResolution;
+
+      context.drawImage(video, 0, 0, w, h);
+
+      return context.getImageData(0, 0,
+        width * _renderResolution,
+        height * _renderResolution);
     }
 
     return function(fileURL) {
@@ -57,11 +61,23 @@ var pipeline = (function() {
       var eventListeners = [];
 
       return {
-        on: function(eventName, cb) {
+        on(eventName, cb) {
           events.register(eventName, cb);
         },
-        renderResolution: function(res) {
+        renderResolution(res) {
           _renderResolution = res;
+        },
+        refresh() {
+          events.trigger('imageStream', _getImageDataFromVideo());
+        },
+        getCanvasDimensions() {
+          return {
+            width: width * _renderResolution,
+            height: height * _renderResolution
+          };
+        },
+        renderRate(rate) {
+          console.log('rendering rate:', rate);
         }
       };
     };

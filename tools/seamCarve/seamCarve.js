@@ -11,7 +11,7 @@
           data: imageData.data
         },
         adjust: {
-          width: imageData.width - 50
+          width: imageData.width - 100
         }
       });
 

@@ -10,27 +10,65 @@
 
     videoContainers.style.visibility = 'hidden';
 
-    fileUpload.addEventListener('change', function(e) {
-      var file = this.files[0];
+    let _state = {
+      video: {},
+      grayscale: false,
+      resolution: 1,
+      seamCarve: false
+    };
+
+    let grayscaleChkbox = document.querySelector('#grayscale-chkbox');
+    let selectResolution = document.querySelector('#select-resolution');
+    let carveChkbox = document.querySelector('#carve-chkbox');
+
+    grayscaleChkbox.addEventListener('click', e => {
+      _state.grayscale = e.target.checked;
+      _state.video.refresh();
+    });
+
+    selectResolution.addEventListener('change', e => {
+      let value = e.target.options[e.target.selectedIndex].value;
+      _state.resolution = +value;
+      _state.video.renderResolution(_state.resolution);
+
+      let dim = _state.video.getCanvasDimensions();
+      preview.width = dim.width;
+      preview.height = dim.height;
+      
+      _state.video.refresh();
+    });
+
+    carveChkbox.addEventListener('change', e => {
+      _state.seamCarve = e.target.checked;
+      _state.video.refresh();
+    });
+
+    fileUpload.addEventListener('change', e => {
+      var file = e.target.files[0];
       var fileURL = URL.createObjectURL(file);
       var previewCtx = preview.getContext('2d');
-      var video = videoPipeline(fileURL);
 
-      video.renderResolution(0.15);
+      _state.video = videoPipeline(fileURL);
+      _state.video.renderRate(1);
+      _state.video.renderResolution(_state.resolution);
 
-      video.on('loaded', function(video, dimen) {
-        preview.width = dimen.width;
-        preview.height = dimen.height;
+      _state.video.on('loaded', function(video, dimen) {
+        let dim = _state.video.getCanvasDimensions();
+        preview.width = dim.width;
+        preview.height = dim.height;
         videoContainers.style.visibility = 'visible';
       });
 
-      video.on('imageStream', function(imageData) {
-        var grayscaleTool = tooling.use('grayscale');
-        var seamCarvingTool = tooling.use('seamCarve');
+      _state.video.on('imageStream', function(imageData) {
+        let pipeTool = tooling.use('pipe');
+        let grayscaleTool = tooling.use('grayscale');
+        let carveTool = tooling.use('seamCarve');
 
-        seamCarvingTool(imageData, previewCtx).then(function(idata) {
-          return grayscaleTool(idata);
-        }).then(function(idata) {
+        pipeTool(imageData).then(idata => {
+          return _state.seamCarve ? carveTool(idata, previewCtx) : idata;
+        }).then(idata => {
+          return _state.grayscale ? grayscaleTool(idata) : idata;
+        }).then(idata => {
           return previewCtx.putImageData(idata, 0, 0);
         });
       });
