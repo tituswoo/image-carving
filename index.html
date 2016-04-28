@@ -40,11 +40,15 @@
           <div>
             <label for="carve-chkbox">
               <input type="checkbox" id="carve-chkbox"> Carve
-            </label>
+            </label><br><br>
+            <!-- I know this sucks as UI, should be percent, etc. but class project
+                 and time constraints, haha. -->
+            Amount: <input type="range" value="0" step="10" min="0" max="100" id="carve-amount">
           </div>
           <div>
             Preview at
             <select id="select-resolution">
+              <option value="0.125">1/8</option>
               <option value="0.25">1/4</option>
               <option value="0.5">1/2</option>
               <option value="0.75">3/4</option>

@@ -14,15 +14,22 @@
       video: {},
       grayscale: false,
       resolution: 1,
-      seamCarve: false
+      seamCarve: false,
+      seamCarveAmount: 0
     };
 
     let grayscaleChkbox = document.querySelector('#grayscale-chkbox');
     let selectResolution = document.querySelector('#select-resolution');
     let carveChkbox = document.querySelector('#carve-chkbox');
+    let carveAmount = document.querySelector('#carve-amount');
 
     grayscaleChkbox.addEventListener('click', e => {
       _state.grayscale = e.target.checked;
+      _state.video.refresh();
+    });
+
+    carveAmount.addEventListener('change', e => {
+      _state.seamCarveAmount = e.target.value;
       _state.video.refresh();
     });
 
@@ -34,7 +41,9 @@
       let dim = _state.video.getCanvasDimensions();
       preview.width = dim.width;
       preview.height = dim.height;
-      
+
+      carveAmount.max = dim.width;
+
       _state.video.refresh();
     });
 
@@ -57,6 +66,8 @@
         preview.width = dim.width;
         preview.height = dim.height;
         videoContainers.style.visibility = 'visible';
+
+        carveAmount.max = dim.width;
       });
 
       _state.video.on('imageStream', function(imageData) {
@@ -65,7 +76,10 @@
         let carveTool = tooling.use('seamCarve');
 
         pipeTool(imageData).then(idata => {
-          return _state.seamCarve ? carveTool(idata, previewCtx) : idata;
+          if (_state.seamCarve) {
+            return carveTool(idata, _state.seamCarveAmount, previewCtx);
+          }
+          return idata;
         }).then(idata => {
           return _state.grayscale ? grayscaleTool(idata) : idata;
         }).then(idata => {

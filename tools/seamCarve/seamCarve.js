@@ -1,7 +1,12 @@
 (function(tooling, Promise) {
   'use strict';
 
-  function seamCarver(imageData, ctx) {
+  // better ways to do this (probably should use
+  // currying or something to remove need for passing
+  // in the idata for each filter or for passing
+  // in the context, but class project and
+  // time constraints. So function gt form atm :(
+  function seamCarver(imageData, amount, ctx) {
     return new Promise(function(resolve, reject) {
       var worker = new Worker('tools/seamCarve/SeamCarver.js');
       worker.postMessage({
@@ -11,7 +16,7 @@
           data: imageData.data
         },
         adjust: {
-          width: imageData.width - 100
+          width: imageData.width - amount
         }
       });
 
