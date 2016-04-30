@@ -5,10 +5,6 @@ let app = express();
 
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-  res.send('Hello world');
-});
-
 app.listen(8080, () => {
   console.log('Server listening on port 8080');
 });
