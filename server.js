@@ -1,3 +1,19 @@
+'use strict';
+
+const express = require('express');
+let app = express();
+
+app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+  res.send('Hello world');
+});
+
+app.listen(8080, () => {
+  console.log('Server listening on port 8888');
+});
+
+
 // var express = require('express'),
 //     multer  = require('multer');
 // var app = express();
@@ -15,25 +31,27 @@
 // app.listen(8000);
 
 
-var app = require('http').createServer(handler)
-  , io = require('socket.io').listen(app)
-  , fs = require('fs')
-  , exec = require('child_process').exec
-  , util = require('util')
 
-app.listen(8080);
 //
-function handler (req, res) {
-  fs.readFile(__dirname + '/index.html',
-  function (err, data) {
-    if (err) {
-      res.writeHead(500);
-      return res.end('Error loading index.html');
-    }
-    res.writeHead(200);
-    res.end(data);
-  });
-}
+// var app = require('http').createServer(handler)
+//   , io = require('socket.io').listen(app)
+//   , fs = require('fs')
+//   , exec = require('child_process').exec
+//   , util = require('util')
+//
+// app.listen(8080);
+// //
+// function handler (req, res) {
+//   fs.readFile(__dirname + '/index.html',
+//   function (err, data) {
+//     if (err) {
+//       res.writeHead(500);
+//       return res.end('Error loading index.html');
+//     }
+//     res.writeHead(200);
+//     res.end(data);
+//   });
+// }
 
 // var splitVid = new ffmpeg();
 //
