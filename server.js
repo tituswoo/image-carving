@@ -1,12 +1,23 @@
 'use strict';
 
-const express = require('express');
-let app = express();
+// const express = require('express');
+// let app = express();
+// var path = require('path');
+// app.use(express.static('public'));
+//
+// app.listen(8080, () => {
+//   console.log('Server listening on port 8080');
+// });
 
-app.use(express.static('public'));
+var io = require('socket.io').listen(8090);
+var ss = require('socket.io-stream');
+var path = require('path');
 
-app.listen(8080, () => {
-  console.log('Server listening on port 8080');
+io.on('connection', function(socket) {
+  ss(socket).on('foo', function(stream) {
+    stream.pipe(fs.createWriteStream('test.txt'));
+    console.log('worked');
+  });
 });
 
 
