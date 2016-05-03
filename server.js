@@ -31,7 +31,26 @@ io.sockets.on("connection", function(socket){
 
     // Do something when a file is saved:
     uploader.on("saved", function(event){
+
         console.log('SAVED', event.file);
+        var splitVid = new ffmpeg();
+        fs.existsSync(filePath + '/pics') || fs.mkdirSync(filePath + '/pics');
+        splitVid.addInput(filePath + "/flag.mp4")
+        .on('start', function(ffmpegCommand) {
+            /// log something maybe
+        })
+        .on('progress', function(data) {
+            /// do stuff with progress data if you want
+        })
+        .on('end', function() {
+            /// encoding is complete, so callback or move on at this point
+        })
+        .on('error', function(error) {
+            console.log(error);
+        })
+        .outputOptions(['-r 29.97'])
+        .output(filePath + '/pics/output_%04d.png')
+        .run();
     });
 
     // Error handler:
@@ -41,24 +60,7 @@ io.sockets.on("connection", function(socket){
 });
 
 
-var splitVid = new ffmpeg();
 
-splitVid.addInput(filePath + '/video.m4v')
-.on('start', function(ffmpegCommand) {
-    /// log something maybe
-})
-.on('progress', function(data) {
-    /// do stuff with progress data if you want
-})
-.on('end', function() {
-    /// encoding is complete, so callback or move on at this point
-})
-.on('error', function(error) {
-    /// error handling
-})
-.outputOptions(['-vf fps=30 '])
-.output('output/out%d.png')
-.run();
 
 
 var proc = new ffmpeg();
