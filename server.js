@@ -17,7 +17,7 @@ var app = express()
 // Start up Socket.IO:
 var io = socketio.listen(app);
 
-var filePath = __dirname + '/uploads';
+var filePath = __dirname + '/public/uploads';
 
 fs.existsSync(filePath) || fs.mkdirSync(filePath);
 
@@ -56,9 +56,6 @@ io.sockets.on("connection", function(socket){
         .output(filePath + '/pics/output_%04d.png')
         .run();
 
-
-
-
     });
 
     // Error handler:
@@ -85,7 +82,7 @@ function createVid(cb) {
     console.log(error);
   })
   .addInputOption('-framerate 29.97')
-  .outputOptions(['-c:v libx264','-pix_fmt yuv420p'])
+  .outputOptions(['-c:v libx264', '-vf format=gray', '-pix_fmt yuv420p'])
   .output(filePath + '/outputvid/output.mp4')
   .run();
 }
