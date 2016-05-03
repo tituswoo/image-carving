@@ -21,5 +21,8 @@
     "express": "^4.13.4",
     "socket.io": "^1.0",
     "socketio-file-upload": "^0.4.6"
+  },
+  "devDependencies": {
+    "fluent-ffmpeg": "^2.1.0"
   }
 }

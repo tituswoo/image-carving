@@ -1,4 +1,4 @@
-(function(tooling) {
+(function(tooling, io, SocketIOFileUpload) {
   'use strict';
 
   window.onload = function() {
@@ -61,6 +61,28 @@
       _state.video.renderRate(1);
       _state.video.renderResolution(_state.resolution);
 
+      // Start the socket stuff
+      var socket = io.connect();
+      var siofu = new SocketIOFileUpload(socket);
+
+      /////////////////////////////////////
+      // socket upload:
+      // siofu.listenOnInput(document.getElementById("fileUpload"));
+
+      siofu.submitFiles(e.target.files);
+
+      // Do something on upload progress:
+      siofu.addEventListener("progress", function(event){
+          var percent = event.bytesLoaded / event.file.size * 100;
+          console.log("File is", percent.toFixed(2), "percent loaded");
+      });
+
+      // Do something when a file is uploaded:
+      siofu.addEventListener("complete", function(event){
+          console.log(event.success);
+          console.log(event.file);
+      });
+
       _state.video.on('loaded', function(video, dimen) {
         let dim = _state.video.getCanvasDimensions();
         preview.width = dim.width;
@@ -88,4 +110,4 @@
       });
     });
   };
-})(tooling);
+})(tooling, io, SocketIOFileUpload);

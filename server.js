@@ -15,9 +15,10 @@ var app = express()
 // Start up Socket.IO:
 var io = socketio.listen(app);
 
-var filePath = '/Users/amolpatel5/Desktop/';
+var filePath = __dirname + '/uploads';
 io.sockets.on("connection", function(socket){
 
+  console.log(__dirname);
     // Make an instance of SocketIOFileUpload and listen on this socket:
     var uploader = new SocketIOFileUpload();
     uploader.dir = filePath;
@@ -26,7 +27,7 @@ io.sockets.on("connection", function(socket){
 
     // Do something when a file is saved:
     uploader.on("saved", function(event){
-        console.log(event.file);
+        console.log('SAVED', event.file);
     });
 
     // Error handler:
