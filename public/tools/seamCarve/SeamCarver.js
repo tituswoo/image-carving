@@ -1,3 +1,7 @@
+// Code from:
+// http://nparashuram.com/seamcarving/
+
+
 self.addEventListener('message', function(e){
     var data = e.data;
     var seamCarver = new SeamCarver(data.image).initSeams();
