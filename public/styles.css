@@ -1,0 +1,65 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-size: 14px;
+  font-family: "Helvetica Nueue", Helvetica, Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.container video, .container canvas {
+  width: 100%;
+  height: auto;
+}
+
+.container > * {
+  flex-grow: 1;
+  margin-right: 10px;
+  width: 50%;
+}
+
+.container > *:last-child {
+  margin-right: 0;
+}
+
+.navbar {
+  color: white;
+  background-color: #333138;
+  padding: 5px;
+}
+
+.navbar__title {
+  font-weight: 100;
+  font-size: 2em;
+  text-align: center;
+}
+
+#fileUpload {
+  padding: 10px;
+}
+
+.text {
+  padding-left: 10px;
+}
+
+.preview__buttons {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.preview__buttons > div {
+  margin-right: 10px;
+}
+
+.preview__buttons > div:last-child {
+  margin-right: 0;
+}

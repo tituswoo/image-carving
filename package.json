@@ -1,0 +1,29 @@
+{
+  "name": "image-carving",
+  "version": "1.0.0",
+  "description": "A video editor with image carving.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tituswoo/image-carving.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tituswoo/image-carving/issues"
+  },
+  "homepage": "https://github.com/tituswoo/image-carving#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "socket.io": "^1.0",
+    "socketio-file-upload": "^0.4.6"
+  },
+  "devDependencies": {
+    "fluent-ffmpeg": "^2.1.0",
+    "rimraf": "^2.5.2"
+  }
+}
