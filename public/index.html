@@ -14,21 +14,23 @@
   <script src="/siofu/client.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="main.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>
   <div class="navbar">
-    <h1 class="navbar__title">Seam Express</h1>
+    <h1 class="navbar__title">Seam Express <i class="fa fa-video-camera" aria-hidden="true"></i></h1>
   </div>
 
-  <label for="fileUpload" class="text">Upload Video</label>
+  <label for="fileUpload" class="text"><i class="fa fa-file-video-o" aria-hidden="true"></i></label>
   <input type="file" accept="video/*" id="fileUpload">
   <div class="container" id="video-containers">
     <div>
-      <h2>Original</h2>
+      <h2 class="videoTitleOriginal">Original</h2>
       <video id="video-player" controls></video>
     </div>
     <div>
-      <h2>Enhancements</h2>
+      <h2 class="videoTitleNew">Enhancements</h2>
       <div class="preview">
         <canvas id="video-preview"></canvas>
         <div class="preview__buttons">
@@ -60,6 +62,10 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="footer">
+    <p>By: Titus Woo, Amol Patel, Pranil Vora</p>
+    <p><a class="icon" href="http://github.com/tituswoo/image-carving" target="_blank"><i class="fa fa-github-square fa-5" aria-hidden="true"></i></a></p>
   </div>
 </body>
 </html>

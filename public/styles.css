@@ -5,12 +5,13 @@
 
 body {
   font-size: 14px;
-  font-family: "Helvetica Nueue", Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .container {
   display: flex;
   flex-direction: row;
+  margin-bottom: 20px;
 }
 
 .container video, .container canvas {
@@ -28,10 +29,28 @@ body {
   margin-right: 0;
 }
 
+.videoTitleOriginal {
+  text-align: center;
+  padding-bottom: 5px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 25px;
+  color: #27ae60;
+}
+
+.videoTitleNew {
+  text-align: center;
+  padding-bottom: 5px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 25px;
+  color: #f39c12;
+}
+
+
+
 .navbar {
   color: white;
   background-color: #333138;
-  padding: 5px;
+  padding: 9px;
 }
 
 .navbar__title {
@@ -41,11 +60,25 @@ body {
 }
 
 #fileUpload {
-  padding: 10px;
+  padding: 20px;
 }
 
 .text {
   padding-left: 10px;
+}
+
+.footer {
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+}
+
+.icon {
+  font-size: 2em;
+  color: #333138;
 }
 
 .preview__buttons {
