@@ -17,7 +17,7 @@ var app = express()
 // Start up Socket.IO:
 var io = socketio.listen(app);
 
-var filePath = __dirname + '/uploads';
+var filePath = __dirname + '/public/uploads';
 
 fs.existsSync(filePath) || fs.mkdirSync(filePath);
 
