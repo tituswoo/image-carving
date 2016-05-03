@@ -55,7 +55,6 @@
     fileUpload.addEventListener('change', e => {
       var file = e.target.files[0];
       var fileURL = URL.createObjectURL(file);
-      sendData(e);
       var previewCtx = preview.getContext('2d');
 
       _state.video = videoPipeline(fileURL);
@@ -90,14 +89,3 @@
     });
   };
 })(tooling);
-
-function sendData(d) {
-  var io = require('socket.io-client');
-  var ss = require('socket.io-stream');
-
-  var socket = io.connect('http://localhost');
-  var stream = ss.createStream();
-  var filename = 'test.txt';
-  ss(socket).emit('foo', stream);
-  fs.createReadStream(filename).pipe(stream);
-}

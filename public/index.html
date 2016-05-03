@@ -6,21 +6,61 @@
   <script src="libs/promise-7.0.4.min.js"></script>
 
   <!-- Import tools -->
+  <!-- <script src="js/socket.io-stream.js"></script> -->
+  <!-- <script src="js/jquery.js"></script> -->
   <!-- <script src="/socket.io/socket.io.js"></script> -->
+
+  <!-- <script>
+    var socket = io.connect('http://localhost:8000');
+    socket.on('news', function (data) {
+      console.log(data);
+      socket.emit('my other event', { my: 'data' });
+    });
+  </script> -->
   <script src="webImage.js"></script>
 
   <script src="tools/tooling.js"></script>
   <script src="tools/grayscale.js"></script>
   <script src="tools/seamCarve/seamCarve.js"></script>
   <script src="tools/pipe.js"></script>
-
   <script src="pipeline.js"></script>
   <script src="main.js"></script>
+  <script src="/siofu/client.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function(){
+
+      // Initialize instances:
+      var socket = io.connect();
+      var siofu = new SocketIOFileUpload(socket);
+
+      // Configure the three ways that SocketIOFileUpload can read files:
+      document.getElementById("upload_input").addEventListener("click", siofu.prompt, false);
+      siofu.listenOnInput(document.getElementById("upload_input"));
+
+      // Do something on upload progress:
+      siofu.addEventListener("progress", function(event){
+          var percent = event.bytesLoaded / event.file.size * 100;
+          console.log("File is", percent.toFixed(2), "percent loaded");
+      });
+
+      // Do something when a file is uploaded:
+      siofu.addEventListener("complete", function(event){
+          console.log(event.success);
+          console.log(event.file);
+      });
+
+  }, false);
+  </script>
 </head>
 <body>
   <div class="navbar">
     <h1 class="navbar__title">Upload video</h1>
   </div>
+
+  <p><label>Upload Video: <input type="file" id="upload_input"/></label></p>
+
   <label for="fileUpload"></label>
   <input type="file" accept="video/*" id="fileUpload">
   <div class="container" id="video-containers">
