@@ -6,6 +6,7 @@ var SocketIOFileUpload = require('socketio-file-upload'),
     express = require('express');
 var ffmpeg = require('fluent-ffmpeg');
 let fs = require('fs');
+let rimraf = require('rimraf');
 
 // Make your Express server:
 var app = express()
@@ -35,7 +36,7 @@ io.sockets.on("connection", function(socket){
         console.log('SAVED', event.file);
         var splitVid = new ffmpeg();
         fs.existsSync(filePath + '/pics') || fs.mkdirSync(filePath + '/pics');
-        splitVid.addInput(filePath + "/flag.mp4")
+        splitVid.addInput(filePath + "/" + event.file.name)
         .on('start', function(ffmpegCommand) {
             /// log something maybe
         })
@@ -44,6 +45,9 @@ io.sockets.on("connection", function(socket){
         })
         .on('end', function() {
             /// encoding is complete, so callback or move on at this point
+            createVid(function() {
+              rimraf.sync(filePath+"/pics");
+            });
         })
         .on('error', function(error) {
             console.log(error);
@@ -51,6 +55,10 @@ io.sockets.on("connection", function(socket){
         .outputOptions(['-r 29.97'])
         .output(filePath + '/pics/output_%04d.png')
         .run();
+
+
+
+
     });
 
     // Error handler:
@@ -59,26 +67,25 @@ io.sockets.on("connection", function(socket){
     });
 });
 
-
-
-
-
-var proc = new ffmpeg();
-
-proc.addInput('output/out%d.png')
-.on('start', function(ffmpegCommand) {
-    /// log something maybe
-})
-.on('progress', function(data) {
-    /// do stuff with progress data if you want
-})
-.on('end', function() {
-    /// encoding is complete, so callback or move on at this point
-})
-.on('error', function(error) {
-    /// error handling
-})
-.addInputOption('-framerate 30')
-.outputOptions(['-c:v libx264','-pix_fmt yuv420p'])
-.output('out.mp4')
-.run();
+function createVid(cb) {
+  var proc = new ffmpeg();
+  fs.existsSync(filePath + '/outputvid') || fs.mkdirSync(filePath + '/outputvid');
+  proc.addInput(filePath + '/pics/output_%04d.png')
+  .on('start', function(ffmpegCommand) {
+      /// log something maybe
+  })
+  .on('progress', function(data) {
+      /// do stuff with progress data if you want
+  })
+  .on('end', function() {
+      /// encoding is complete, so callback or move on at this point
+      cb();
+  })
+  .on('error', function(error) {
+    console.log(error);
+  })
+  .addInputOption('-framerate 29.97')
+  .outputOptions(['-c:v libx264','-pix_fmt yuv420p'])
+  .output(filePath + '/outputvid/output.mp4')
+  .run();
+}

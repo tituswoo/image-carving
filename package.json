@@ -23,6 +23,7 @@
     "socketio-file-upload": "^0.4.6"
   },
   "devDependencies": {
-    "fluent-ffmpeg": "^2.1.0"
+    "fluent-ffmpeg": "^2.1.0",
+    "rimraf": "^2.5.2"
   }
 }
