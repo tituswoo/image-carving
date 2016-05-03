@@ -5,6 +5,7 @@ var SocketIOFileUpload = require('socketio-file-upload'),
     socketio = require('socket.io'),
     express = require('express');
 var ffmpeg = require('fluent-ffmpeg');
+let fs = require('fs');
 
 // Make your Express server:
 var app = express()
@@ -16,6 +17,9 @@ var app = express()
 var io = socketio.listen(app);
 
 var filePath = __dirname + '/uploads';
+
+fs.existsSync(filePath) || fs.mkdirSync(filePath);
+
 io.sockets.on("connection", function(socket){
 
   console.log(__dirname);
