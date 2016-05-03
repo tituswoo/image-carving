@@ -36,11 +36,16 @@ body {
 
 .navbar__title {
   font-weight: 100;
-  font-size: 1.2em;
+  font-size: 2em;
+  text-align: center;
 }
 
 #fileUpload {
   padding: 10px;
+}
+
+.text {
+  padding-left: 10px;
 }
 
 .preview__buttons {

@@ -66,8 +66,6 @@
       var siofu = new SocketIOFileUpload(socket);
 
       /////////////////////////////////////
-      // socket upload:
-      // siofu.listenOnInput(document.getElementById("fileUpload"));
 
       siofu.submitFiles(e.target.files);
 
